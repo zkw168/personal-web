@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>果果工作室</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="bei jing dong xiao.css">
+    <style>
+        @font-face{
+            font-family: '分裂英文';
+            src: url('colonna.TTF');
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            
+        }
+        .header {
+            position: relative;
+            background-color: rgba(67, 67, 67, 0.5); /* 半透明的背景色 */
+            color: #F1FAEE;
+            height: 50px;
+            line-height: 50px;
+            padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
+            top: -0px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 添加阴影 */
+            backdrop-filter: blur(10px); /* 添加毛玻璃效果 */
+        }
+
+        .search-bar {
+            position: relative;
+            display: flex; /* 使用 flexbox 布局 */
+            align-items: center; /* 垂直居中对齐 */
+            margin-top: 20px; /* 顶部边距 */
+            width: 100%; /* 修改这里的宽度为100% */
+        }
+        .search-bar input[type="text"] {
+            position: relative;
+            flex-grow: 1; /* 让搜索框占据剩余空间 */
+            padding: 10px; /* 内边距 */
+            border: 1px solid #ddd; /* 边框 */
+            border-radius: 24px 0 0 24px; /* 圆角边框，搜索键部分不显示圆角 */
+            outline: none; /* 点击时不显示轮廓 */
+            width: 100%; /* 修改宽度为100% */
+        }
+
+        .search-bar input[type="submit"] {
+            position: relative;
+            padding: 0 20px; /* 左右内边距 */
+            border: 0px solid #ddd; /* 边框 */
+            border-left: none; /* 左边界与搜索框相连 */
+            border-radius: 0 24px 24px 0; /* 圆角边框，只显示右侧和底部圆角 */
+            background-color: #434343; /* 背景颜色 */
+            color: #F1FAEE; /* 字体颜色 */
+            height: 42px; /* 与搜索框高度一致 */
+            cursor: pointer; /* 鼠标悬停时的光标样式 */
+            white-space: nowrap; /* 防止文字换行 */
+        }
+
+        .top-fixed-buttons {
+            position: relative; /* 固定定位 */
+            top: 0; /* 顶部 */
+            left: 0; /* 左侧 */
+            width: 100%; /* 宽度100% */            
+            text-align: center; /* 文本居中 */
+            
+        }
+
+        #mainTitle {
+                font-size: 50px; 
+                font-family: '分裂英文';
+            }
+
+        .frequent-sites button {
+            margin: 0 5px; /* 按钮之间的间距 */
+        }
+
+        .main-content {
+            margin-left: 50px; /* 侧边栏宽度 + 侧边栏padding */
+            padding: 20px;
+            padding-top: 70px; /* 留出顶部导航栏的空间 */
+            height: calc(35% - 50px);
+            box-sizing: border-box;
+            text-align: center; /* 添加此行来居中标题 */
+        }
+        
+
+         /* 天气组件的样式 */
+        #weatherComponent {
+            position: fixed; /* 绝对定位 */
+            font-size: 15px;
+            bottom: 0px; /* 距离底部的距离 */
+            height: 300px;
+            width: 110px;
+            left: 0px; /* 距离右侧的距离 */
+            background-color: rgba(248,248,255, 0.5); /* 半透明的背景色 */
+            border: 1px solid #ccc; /* 边框 */
+            padding: 10px; /* 内边距 */
+            border-radius: 8px; /* 圆角 */
+            z-index: 10; /* 确保天气组件在footer之上 */
+            cursor: move; /* 设置鼠标指针样式为可移动 */
+        }
+
+        .weather-info p {
+            margin: 5px 0; /* 段落之间的间距 */
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="background"></div>
+    <div class="header">
+        <h1>果果工作室</h1>
+    </div>
+    
+    <div class="sidebar">
+        <!-- --t是自定义属性，通过var函数可调用 -->
+        <li style="--t:20%;">
+            <a href=""javascript:void(0)onclick="loadContent('HOME')</a>">
+                <i class="fa fa-home" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li style="--t:30%;">
+            <a href="https://www.example.com">
+                <i class="fa fa-th-large" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li style="--t:40%;">
+            <a href="https://www.example.com">
+                <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li style="--t:50%;">
+            <a href="https://www.example.com">
+                <i class="fa fa-user" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li style="--t:60%;">
+            <a href="https://www.example.com">
+                <i class="fa fa-cog" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li style="--t:70%;">
+            <a href="https://www.example.com">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+            </a>
+        </li>
+        <div class="top"></div>
+        <div class="middle"></div>
+        <div class="bottom"></div>
+    </div>
+
+
+    <div class="clock-container">
+        <div class="clock">
+           <div class="clock__circle">
+              <div class="clock__rounder"></div>
+              <div class="clock__hour" id="clock-hour"></div>
+              <div class="clock__minutes" id="clock-minutes"></div>
+           </div>
+
+           <div>
+              <div class="clock__date">
+                 <span class="clock__day-week" id="date-day-week"></span>
+
+                 <div>
+                    <span class="clock__month" id="date-month"></span>
+                    <span class="clock__day" id="date-day"></span>
+                    <span class="clock__year" id="date-year"></span>
+                 </div>
+              </div>
+
+              <div class="clock__text">
+                 <span class="clock__text-hour" id="text-hour"></span>
+                 <span class="clock__text-minutes" id="text-minutes"></span>
+                 <span class="clock__text-ampm" id="text-ampm"></span>
+              </div>
+           </div>
+        </div>
+     </div>
+
+     <div class="main-content">
+        <h2 id="mainTitle" class="mainTitle">loading</h2>
+        <p id="mainContent">loading...</p>
+        <div>
+            <button onclick="performSearch('bing')">Bing</button>
+            <button onclick="performSearch('dogpile')">Dogpile</button>
+            <button onclick="performSearch('qwant')">Qwant</button>
+            <button onclick="performSearch('swisscows')">Swisscows</button>
+            <button onclick="performSearch('bilibili')">bilibili</button>
+        </div>
+     </div>
+
+
+    
+    <div id="web-container">
+        <div id="searchResults">
+            <div class="progress-bar" id="progressBar"></div>
+            <div id="currentUrl"></div> <!-- 显示当前网页链接 -->
+        </div>
+        <div id="switchButtons"></div>
+    </div>
+
+    <div class="chat-container">
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="input-container">
+            <input type="text" id="userInput" placeholder="输入你的问题..." />
+            <button onclick="sendMessage()">发送</button>
+        </div>
+    </div>
+    
+    <div class="top-fixed-buttons" id="top-buttons">
+        <!-- 按钮将被添加到这里 -->
+    </div>    
+
+<!-- 天气组件容器 -->
+<div id="weatherComponent" class="weather-component">
+    <div class="weather-info">
+        <p class="省份"><strong>省份:</strong> loading</p>
+        <p class="城市"><strong>城市:</strong> loading</p>
+        <p class="地区代码"><strong>地区代码:</strong> loading</p>
+        <p class="天气"><strong>天气:</strong> loading</p>
+        <p class="温度"><strong>温度:</strong> loading</p>
+        <p class="风向"><strong>风向:</strong> loading</p>
+        <p class="风力"><strong>风力:</strong> loading</p>
+        <p class="湿度"><strong>湿度:</strong> loading</p>
+        <p class="报告时间"><strong>报告时间:</strong> loading</p>
+    </div>  
+</div>
+
+
+
+
+    <script>
+        // 页面加载完成后自动调用初始化函数
+        window.onload = function() {
+            initApp();
+        };
+
+        // 初始化应用
+        function initApp() {
+            loadContent('HOME'); // 加载HOME页面内容
+            showClock(); // 显示时钟
+        };
+
+        function loadContent(section) {
+            var content = '';
+            var mainContentDiv = document.getElementById('mainContent');
+
+            switch(section) {
+                case 'HOME':
+                    // 为HOME页面添加特定内容
+                    content = '<div class="search-bar">' +
+                        '<input type="text" name="q" id="searchQuery" placeholder="输入您想搜索的内容使用 Bing 搜索">' +
+                        '<input type="submit" value="搜索" onclick="return searchBing()"></div>';
+                    // 可以在这里添加HOME页面的其他内容
+                    break;
+                // 可以在这里添加其他section的case
+            }
+
+            mainContentDiv.innerHTML = content;
+        };
+
+
+        function loadContent(section) {
+            var content = '';
+            // 添加CSS样式
+            content += '<style>' +
+                'button { ' +
+                'background-color: rgba(0,0,0, 0.5); /* 绿色背景 */' +
+                'color: #F1FAEE; /* 白色文字 */' +
+                'border: none; /* 无边框 */' +
+                'padding: 10px 20px; /* 内边距 */' +
+                'text-align: center;' +
+                'text-decoration: none;' +
+                'display: inline-block;' +
+                'font-size: 16px;' +
+                'margin: 4px 2px;' +
+                'cursor: pointer;' +
+                'border-radius: 10px; /* 圆角 */' +
+                '}' +
+                'button:hover { ' +
+                'background-color: rgba(248,248,255, 0.5); /* 鼠标悬浮时的背景色 */' +
+                '}' +
+                '</style>';
+    
+            // 先添加搜索栏
+            content += '<div class="search-bar">' +
+                        '<input type="text" name="q" id="searchQuery" placeholder="输入您想搜索的内容使用 Bing 搜索">' +
+                        '<input type="submit" value="搜索" onclick="return searchBing()"></div>';
+    
+            // 判断如果是HOME页面，添加常用网址的跳转按钮
+            if (section === 'HOME') {
+                content += '<div class="top-fixed-buttons" style="margin-top: 20px; text-align: center;">' +
+                           '<button onclick="window.open(\'https://ifxdh.com/\', \'_blank\')">Websites</button>' +
+                           '<button onclick="window.open(\'https://www.google.com\', \'_blank\')">Google</button>' +
+                           '<button onclick="window.open(\'https://www.gnomic.cn/\', \'_blank\')">Gnomic AI</button>' +
+                           '<button onclick="window.open(\'http://yhdm9.com/\', \'_blank\')">Sakura anime</button>' +
+                           '<button onclick="window.open(\'https://www.bilibili.com/\', \'_blank\')">bilibili</button>' +
+                           '</div>';
+                           
+            }
+    
+            // 设置页面标题和内容
+            document.getElementById('mainTitle').textContent = section;
+            document.getElementById('mainContent').innerHTML = content;
+        }
+    
+        function searchBing() {
+            var query = document.getElementById('searchQuery').value;
+            if (query) { // 确保查询不为空
+                window.open('https://www.bing.com/search?q=' + encodeURIComponent(query), '_blank');
+            }
+            return false; // 阻止表单提交的默认行为
+        }
+
+         //   天气组件开始
+        const apikey = "1eee6f1debae9f05b5b691b5f41be142";
+        var citycodeget = new XMLHttpRequest();
+        var url = "https://restapi.amap.com/v3/ip?&output=xml&key=1eee6f1debae9f05b5b691b5f41be142";
+
+        citycodeget.open("GET", url, true);
+        citycodeget.onreadystatechange = function () {
+            if (citycodeget.readyState === 4 && citycodeget.status === 200) {
+                var response = citycodeget.responseXML;
+                const cityCode = response.querySelector('adcode').textContent;
+                console.log(cityCode);
+                const apiUrl = `https://restapi.amap.com/v3/weather/weatherInfo?city=${cityCode}&key=${apikey}`;
+
+                async function checkWeather() {
+                    try {
+                        const response = await fetch(apiUrl);
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        const data = await response.json();
+                        updateWeatherInfo(data);
+                    } catch (error) {
+                        console.error("Fetching weather data failed:", error);
+                    }
+                }
+
+                function updateWeatherInfo(data) {
+                    if (data && data.lives && data.lives.length > 0) {
+                        const weatherData = data.lives[0];
+                        document.querySelector(".省份").innerHTML = `<strong>省份:</strong> ${weatherData.province}`;
+                        document.querySelector(".城市").innerHTML = `<strong>城市:</strong> ${weatherData.city}`;
+                        document.querySelector(".地区代码").innerHTML = `<strong>地区代码:</strong> ${weatherData.adcode}`;
+                        document.querySelector(".天气").innerHTML = `<strong>天气:</strong> ${weatherData.weather}`;
+                        document.querySelector(".温度").innerHTML = `<strong>温度:</strong> ${weatherData.temperature}°C`;
+                        document.querySelector(".风向").innerHTML = `<strong>风向:</strong> ${weatherData.winddirection}`;
+                        document.querySelector(".风力").innerHTML = `<strong>风力:</strong> ${weatherData.windpower}级`;
+                        document.querySelector(".湿度").innerHTML = `<strong>湿度:</strong> ${weatherData.humidity}%`;
+                        document.querySelector(".报告时间").innerHTML = `<strong>报告时间:</strong> <br>${weatherData.reporttime}`;
+                    }
+                }
+
+                checkWeather();
+            }
+        };
+
+        citycodeget.send();
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+    var weatherComponent = document.getElementById('weatherComponent');
+    var isDragging = false; // 跟踪是否正在拖动组件
+    var currentX, currentY; // 记录组件的初始位置
+
+    // 鼠标按下时开始拖动
+    weatherComponent.addEventListener('mousedown', function(e) {
+        e.preventDefault(); // 阻止默认的鼠标事件
+        isDragging = true; // 开始拖动
+
+        // 计算鼠标和组件的相对位置
+        currentX = e.clientX - weatherComponent.offsetLeft;
+        currentY = e.clientY - weatherComponent.offsetTop;
+    });
+
+    // 鼠标移动时更新组件位置
+    document.addEventListener('mousemove', function(e) {
+        if (isDragging) {
+            // 计算新的位置并更新组件
+            var newLeft = e.clientX - currentX;
+            var newTop = e.clientY - currentY;
+
+            // 确保组件不会移出视口
+            newLeft = Math.max(0, Math.min(document.documentElement.clientWidth - weatherComponent.offsetWidth, newLeft));
+            newTop = Math.max(0, Math.min(document.documentElement.clientHeight - weatherComponent.offsetHeight, newTop));
+
+            // 更新组件位置
+            weatherComponent.style.left = newLeft + 'px';
+            weatherComponent.style.top = newTop + 'px';
+        }
+    });
+
+    // 鼠标释放时结束拖动
+    document.addEventListener('mouseup', function() {
+        isDragging = false; // 结束拖动
+    });
+});
+// 天气组件结束
+var currentQuery = '';
+        var currentEngine = '';
+
+        function performSearch(engine) {
+            var query = document.getElementById('searchQuery').value;
+            if (!query) return; // 确保查询不为空
+
+            currentQuery = query;
+            currentEngine = engine;
+
+            var url;
+            switch (engine) {
+                case 'bing':
+                    url = 'https://www.bing.com/search?q=' + encodeURIComponent(query);
+                    break;
+                case 'dogpile':
+                    url = 'https://www.dogpile.com/serp?q=' + encodeURIComponent(query);
+                    break;
+                case 'qwant':
+                    url = 'https://www.qwant.com/?q=' + encodeURIComponent(query);
+                    break;
+                case 'swisscows':
+                    url = 'https://swisscows.com/web?query=' + encodeURIComponent(query);
+                    break;
+                case 'bilibili':
+                    url = 'https://search.bilibili.com/all?vt=14750523&keyword=' + encodeURIComponent(query);
+                    break;                    
+            }
+
+            var iframeId = 'iframe-' + engine;
+            if (!document.getElementById(iframeId)) {
+                var iframe = document.createElement('iframe');
+                iframe.src = url;
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.border = 'none';
+                iframe.className = 'search-content';
+                iframe.id = iframeId;
+                document.getElementById('searchResults').appendChild(iframe);
+
+                var buttonContainer = document.createElement('div');
+                buttonContainer.className = 'button-container';
+                buttonContainer.id = 'button-' + engine; // 为按钮容器分配唯一 ID
+
+                var button = document.createElement('button');
+                button.textContent = `[${query}] ${capitalize(engine)}`;
+                button.onclick = function() {
+                    switchView(engine);
+                };
+
+                var deleteButton = document.createElement('button');
+                deleteButton.textContent = '删除';
+                deleteButton.className = 'delete-btn';
+                deleteButton.onclick = function() {
+                    removeResult(engine);
+                };
+
+                buttonContainer.appendChild(button);
+                buttonContainer.appendChild(deleteButton);
+                document.getElementById('switchButtons').appendChild(buttonContainer);
+            } else {
+                // 如果 iframe 已存在，则直接更新 src
+                document.getElementById(iframeId).src = url;
+            }
+
+            // 进度条逻辑
+            var progressBar = document.getElementById('progressBar');
+            progressBar.style.width = '0%';
+
+            var width = 0;
+            var interval = setInterval(function() {
+                if (width >= 95) {
+                    clearInterval(interval);
+                } else {
+                    width += 5;
+                    progressBar.style.width = width + '%';
+                }
+            }, 100); // 每100ms更新一次进度条
+
+            var iframe = document.getElementById(iframeId);
+            iframe.onload = function() {
+                clearInterval(interval);
+                progressBar.style.width = '100%';
+                updateCurrentUrl(url);
+            };
+
+            // 切换到最新的搜索结果
+            switchView(engine);
+        }
+
+        function switchView(engine) {
+            var iframes = document.getElementsByClassName('search-content');
+            for (var i = 0; i < iframes.length; i++) {
+                iframes[i].style.display = 'none';
+            }
+            document.getElementById('iframe-' + engine).style.display = 'block';
+        }
+
+        function removeResult(engine) {
+            var iframe = document.getElementById('iframe-' + engine);
+            if (iframe) {
+                iframe.parentNode.removeChild(iframe);
+            }
+            var buttonContainer = document.getElementById('button-' + engine);
+            if (buttonContainer) {
+                buttonContainer.parentNode.removeChild(buttonContainer);
+            }
+            // Optionally, switch to another result if the current one was deleted
+            var remainingButtons = document.querySelectorAll('#switchButtons .button-container');
+            if (remainingButtons.length > 0) {
+                remainingButtons[0].querySelector('button').click(); // 显示第一个结果
+            }
+        }
+
+        function updateCurrentUrl(url) {
+            var currentUrl = document.getElementById('currentUrl');
+            currentUrl.innerHTML = `<a href="${url}" target="_blank">${url}</a>`;
+        }
+
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+    </script>
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script src="bei jing dong xiao.js"></script>
+</body>
+</html>
